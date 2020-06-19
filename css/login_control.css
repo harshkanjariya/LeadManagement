@@ -1,4 +1,4 @@
-.login.login-2 .login-forgot, .login.login-2 .login-signin, .login.login-2 .login-signup {
+.login.login-2 .login-forgot, .login.login-2 .login-signin, .login.login-2 .login-signup ,.login-otp{
     display: none;
 }
 .login.login-2.login-signin-on .login-signup {

@@ -7,6 +7,7 @@ var KTLogin = (function() {
     t.removeClass('login-forgot-on');
     t.removeClass('login-signin-on');
     t.removeClass('login-signup-on');
+    t.removeClass('login-otp-on');
     t.addClass(o);
     KTUtil.animateClass(
       KTUtil.getById(i),
