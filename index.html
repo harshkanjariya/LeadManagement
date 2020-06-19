@@ -841,6 +841,7 @@
                               <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password" placeholder="Confirm password" name="cpassword" autocomplete="off">
                               <div class="fv-plugins-message-container"></div>
                            </div>
+
                            <!--end::Form group-->
                            <!--begin::Form group-->
                            <div class="form-group fv-plugins-icon-container">
@@ -862,6 +863,31 @@
                         <!--end::Form-->
                      </div>
                      <!--end::Signup-->
+                     <div class="login-form login-forgot pt-11">
+                        <!--begin::Form-->
+                        <form class="form fv-plugins-bootstrap fv-plugins-framework" novalidate="novalidate" id="kt_login_otp_form">
+                           <!--begin::Title-->
+                           <div class="text-center pb-8">
+                              <h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">OTP</h2>
+                              <p class="text-muted font-weight-bold font-size-h4">Enter your OTP to Verify your Account</p>
+                           </div>
+                           <!--end::Title-->
+                           <!--begin::Form group-->
+                           <div class="form-group fv-plugins-icon-container">
+                              <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="number" placeholder="6 - digit number" name="otp" autocomplete="off">
+                              <div class="fv-plugins-message-container"></div>
+                           </div>
+                           <!--end::Form group-->
+                           <!--begin::Form group-->
+                           <div class="form-group d-flex flex-wrap flex-center pb-lg-0 pb-3">
+                              <button type="button" id="kt_login_forgot_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mx-4">Submit</button>
+                              <button type="button" id="kt_login_forgot_cancel" class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mx-4">Cancel</button>
+                           </div>
+                           <!--end::Form group-->
+                           <div></div>
+                        </form>
+                        <!--end::Form-->
+                     </div>
                      <!--begin::Forgot-->
                      <div class="login-form login-forgot pt-11">
                         <!--begin::Form-->
@@ -915,7 +941,7 @@
             <!--begin::Content-->
             <div class="content order-1 order-lg-2 d-flex flex-column w-100 pb-0" style="background-color: #B1DCED;">
                <!--begin::Title-->
-               <div class="d-flex flex-column justify-content-center text-center pt-lg-40 pt-md-5 pt-sm-5 px-lg-0 pt-5 px-7">
+               <div class="d-flex flex-column justify-content-center text-center pt-lg-40 pt-md-5 pt-sm-5 px-lg-0 pt-5 px-7" style="padding-top:50px; ">
                   <h3 class="display4 font-weight-bolder my-7 text-dark" style="color: #986923;">Amazing Wireframes</h3>
                   <p class="font-weight-bolder font-size-h2-md font-size-lg text-dark opacity-70">
                      User Experience &amp; Interface Design, Product Strategy<br>
@@ -924,7 +950,7 @@
                </div>
                <!--end::Title-->
                <!--begin::Image-->
-               <div class="content-img d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center" style="background-image: url(marketing.jpg); background-size:contain;"></div>
+               <div class="content-img d-flex flex-row-fluid bgi-no-repeat bgi-position-y-bottom bgi-position-x-center" style="background-image: url(marketing.svg);"></div>
                <!--end::Image-->
             </div>
             <!--end::Content-->
