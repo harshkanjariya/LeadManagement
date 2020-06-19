@@ -28,8 +28,22 @@
 .login.login-2.login-forgot-on .login-forgot {
     display: block;
 }
+.login.login-2.login-otp-on .login-signup {
+    display: none;
+}
+.login.login-2.login-otp-on .login-signin {
+    display: none;
+}
+.login.login-2.login-otp-on .login-otp {
+    display: block;
+}
 .login.login-2 .content .content-img {
     min-height: 450px;
+}
+#otp_hidden::-webkit-outer-spin-button,
+#otp_hidden::-webkit-inner-spin-button
+{
+    -webkit-appearance : none ;
 }
 @media (min-width:992px) {
     .login.login-2 .login-aside {

@@ -126,7 +126,7 @@ var KTLogin = (function() {
             if (t == 'Valid') {
               swal
                 .fire({
-                  text: 'All is cool! Now you submit this form',
+                  text: 'All is cool! Verfication code has been send to your Email.',
                   icon: 'success',
                   buttonsStyling: false,
                   confirmButtonText: 'Ok, got it!',
@@ -137,6 +137,8 @@ var KTLogin = (function() {
                 .then(function() {
                   KTUtil.scrollTop();
                 });
+              i('otp');
+
             } else {
               swal
                 .fire({
@@ -155,9 +157,54 @@ var KTLogin = (function() {
             }
           });
         });
+      (function(t) {
+        var o = FormValidation.formValidation(
+          KTUtil.getById('kt_login_otp_form'),
+          {
+            fields: {
+              otp: {
+                validators: { notEmpty: { message: 'Verification code is required' } },
+              },
+             
+            },
+            plugins: {
+              trigger: new FormValidation.plugins.Trigger(),
+              submitButton: new FormValidation.plugins.SubmitButton(),
+              bootstrap: new FormValidation.plugins.Bootstrap(),
+            },
+          }
+        );
+        $('#kt_login_otp_submit').on('click', function(t) {
+          t.preventDefault();
+          o.validate().then(function(t) {
+            if (t == 'Valid') {
+              KTUtil.scrollTop();
+            } else {
+              swal
+                .fire({
+                  text:
+                    'Sorry, looks like there are some errors detected, please try again.',
+                  icon: 'error',
+                  buttonsStyling: false,
+                  confirmButtonText: 'Ok, got it!',
+                  customClass: {
+                    confirmButton: 'btn font-weight-bold btn-light-primary',
+                  },
+                })
+                .then(function() {
+                  KTUtil.scrollTop();
+                });
+            }
+          });
+        });
+      })();
         $('#kt_login_signup_cancel').on('click', function(t) {
           t.preventDefault();
           i('signin');
+        });
+        $('#kt_login_otp_cancel').on('click', function(t) {
+          t.preventDefault();
+          i('signup');
         });
       })();
       (function(t) {
