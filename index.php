@@ -73,13 +73,11 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="profile.html"><i class="material-icons-outlined">account_circle</i>Create Lead</a>
+                            <a href="creat_lead.html" targer="myfrm"><i class="material-icons-outlined">account_circle</i>Create Lead</a>
                         </li>
                         <li>
                             <a href="file-manager.html"><i class="material-icons">cloud_queue</i>Manage Leads</a>
                         </li>
-                    
-                        
                         <li>
                             <a href="#"><i class="material-icons">text_format</i>Transactions History<i class="material-icons has-sub-menu">add</i></a>
                             <ul class="sub-menu">
