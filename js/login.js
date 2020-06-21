@@ -39,19 +39,71 @@ var KTLogin = (function() {
         t.preventDefault();
         o.validate().then(function(t) {
           if (t == 'Valid') {
-            swal
-              .fire({
-                text: 'All is cool! Now you submit this form',
-                icon: 'success',
-                buttonsStyling: false,
-                confirmButtonText: 'Ok, got it!',
-                customClass: {
-                  confirmButton: 'btn font-weight-bold btn-light-primary',
-                },
-              })
-              .then(function() {
-                KTUtil.scrollTop();
-              });
+            var form=document.getElementById('kt_login_signin_form');
+            $.ajax({
+              url:'../php/login.php',
+              type:"POST",
+              data:{
+                email:form.username.value,
+                password:form.password.value
+              },
+              success:function(result,status){
+                  if(result=="wrong email"){
+                    swal
+                      .fire({
+                        text:
+                          'Email not found!',
+                        icon: 'error',
+                        buttonsStyling: false,
+                        confirmButtonText: 'Try Again!',
+                        customClass: {
+                          confirmButton: 'btn font-weight-bold btn-light-primary',
+                        },
+                      })
+                      .then(function() {
+                        KTUtil.scrollTop();
+                      });
+                  }else if(result=="wrong password"){
+                    swal
+                      .fire({
+                        text:
+                          'Wrong Password!',
+                        icon: 'error',
+                        buttonsStyling: false,
+                        confirmButtonText: 'Try Again!',
+                        customClass: {
+                          confirmButton: 'btn font-weight-bold btn-light-primary',
+                        },
+                      })
+                      .then(function() {
+                        KTUtil.scrollTop();
+                      });
+                  }else if(result=="success"){
+                      var time=new Date(new Date().getTime()+9999999999999).toGMTString();
+                      var cuki = "key1="+form.username.value+"; expires="+time+"; path=/harsh/LeadManager/;";
+                      document.cookie=cuki;
+                        swal
+                          .fire({
+                            text: 'Login successful.',
+                            icon: 'success',
+                            buttonsStyling: false,
+                            confirmButtonText: 'Ok',
+                            customClass: {
+                              confirmButton: 'btn font-weight-bold btn-light-primary',
+                            },
+                          })
+                          .then(function() {
+                            KTUtil.scrollTop();
+                          window.location.replace("../");
+                          });
+                  }else{
+                    console.log(result);
+                  }
+              },
+              error:function(er){
+                  console.log(er);
+              }
+            });
           } else {
             swal
               .fire({
@@ -106,14 +158,14 @@ var KTLogin = (function() {
                   message: 'The password and its confirm are not the same',
                 },
               },
-            },
-            agree: {
-              validators: {
-                notEmpty: {
-                  message: 'You must accept the terms and conditions',
-                },
-              },
-            },
+            }
+            // agree: {
+            //   validators: {
+            //     notEmpty: {
+            //       message: 'You must accept the terms and conditions',
+            //     },
+            //   },
+            // },
           },
           plugins: {
             trigger: new FormValidation.plugins.Trigger(),
@@ -124,6 +176,16 @@ var KTLogin = (function() {
           t.preventDefault();
           o.validate().then(function(t) {
             if (t == 'Valid') {
+              $.ajax({
+                url:'../php/verify.php',
+                type:"POST",
+                data:{mail:document.getElementById('kt_login_signup_form').email.value},
+                success:function(result,status){
+                  var ar=result.split('\n');
+                  if(ar.length==2 && ar[0]=="success")
+                    globalOtpVariable=ar[1];
+                }
+              });
               swal
                 .fire({
                   text: 'All is cool! Verfication code has been send to your Email.',
@@ -136,9 +198,8 @@ var KTLogin = (function() {
                 })
                 .then(function() {
                   KTUtil.scrollTop();
+                  i('otp');
                 });
-              i('otp');
-
             } else {
               swal
                 .fire({
@@ -179,6 +240,24 @@ var KTLogin = (function() {
           o.validate().then(function(t) {
             if (t == 'Valid') {
               KTUtil.scrollTop();
+              if(document.getElementById('otp_hidden').value==globalOtpVariable){
+                submitData();
+              }else{
+                swal
+                  .fire({
+                    text:
+                      'Wrong verification code!',
+                    icon: 'error',
+                    buttonsStyling: false,
+                    confirmButtonText: 'Try again!',
+                    customClass: {
+                      confirmButton: 'btn font-weight-bold btn-light-primary',
+                    },
+                  })
+                  .then(function() {
+                    KTUtil.scrollTop();
+                  });
+              }
             } else {
               swal
                 .fire({
@@ -231,7 +310,48 @@ var KTLogin = (function() {
           t.preventDefault();
           o.validate().then(function(t) {
             if (t == 'Valid') {
-              KTUtil.scrollTop();
+              $.ajax({
+                url:'../php/forgot.php',
+                type:"POST",
+                data:{mail:document.getElementById('kt_login_forgot_form').email.value},
+                error:function(er){
+                    console.log(er);
+                },
+                success:function(result,status){
+                  if(result=="success"){
+                      i('signin');
+                      swal
+                        .fire({
+                          text: 'Password has been send to your Email.',
+                          icon: 'success',
+                          buttonsStyling: false,
+                          confirmButtonText: 'Ok, got it!',
+                          customClass: {
+                            confirmButton: 'btn font-weight-bold btn-light-primary',
+                          },
+                        })
+                        .then(function() {
+                          KTUtil.scrollTop();
+                        });
+                  }else if(result=="wrong email"){
+                      swal
+                        .fire({
+                          text:
+                            'Sorry, Email Not Found!.',
+                          icon: 'error',
+                          buttonsStyling: false,
+                          confirmButtonText: 'Try Again!',
+                          customClass: {
+                            confirmButton: 'btn font-weight-bold btn-light-primary',
+                          },
+                        })
+                        .then(function() {
+                          KTUtil.scrollTop();
+                        });
+                  }else
+                    console.log(result);
+                }
+              });
             } else {
               swal
                 .fire({
@@ -258,6 +378,29 @@ var KTLogin = (function() {
     },
   };
 })();
+var globalOtpVariable='';
+function submitData(){
+  var form=document.getElementById('kt_login_signup_form');
+  var data={
+    username:form.fullname.value,
+    email:form.email.value,
+    password:form.password.value
+  }
+  $.ajax({
+    url:'../php/register.php',
+    data:data,
+    type:"POST",
+    success:function(result,status){
+      if(result=="success"){
+        var time=new Date(new Date().getTime()+9999999999999).toGMTString();
+        var cuki = "key1="+form.email.value+"; expires="+time+"; path=/harsh/LeadManager/;";
+        document.cookie=cuki;
+        window.location.replace("../");
+      }else
+        console.log(result);
+    }
+  });
+}
 jQuery(document).ready(function() {
   KTLogin.init();
 });
